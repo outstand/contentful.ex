@@ -8,7 +8,7 @@ defmodule Contentful.Delivery do
   require Logger
   use HTTPoison.Base
 
-  @endpoint Application.compile_env(:contentful, :endpoint, "cdn.contentful.com")
+  @default_endpoint "cdn.contentful.com"
   @protocol "https"
 
   def space(space_id, access_token) do
@@ -127,8 +127,12 @@ defmodule Contentful.Delivery do
     end
   end
 
+  defp endpoint() do
+    Application.get_env(:contentful, :endpoint, @default_endpoint)
+  end
+
   defp process_url(url) do
-    "#{@protocol}://#{@endpoint}#{url}"
+    "#{@protocol}://#{endpoint()}#{url}"
   end
 
   defp process_response_body(body) do
