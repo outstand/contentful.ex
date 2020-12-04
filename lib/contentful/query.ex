@@ -381,6 +381,22 @@ defmodule Contentful.Query do
   end
 
   @doc """
+  allows for ordering on lists of entries.
+  """
+  @spec order(tuple(), String.t()) :: tuple()
+  def order({Entries, parameters}, order_fields) do
+    {Entries, parameters |> Keyword.put(:order, order_fields)}
+  end
+
+  def order(Entries, order_fields) do
+    order({Entries, []}, order_fields)
+  end
+
+  def order(queryable, _term) do
+    queryable
+  end
+
+  @doc """
   allows for full text search over all entries fields. The original nomenclature fromthe API docs is `query`.
 
   This has been renamed for clarity here.
