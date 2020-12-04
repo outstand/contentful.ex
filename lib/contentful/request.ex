@@ -41,7 +41,8 @@ defmodule Contentful.Request do
           include: non_neg_integer(),
           content_type: String.t(),
           query: String.t(),
-          select_params: map()
+          select_params: map(),
+          order: String.t()
         ) :: list()
   def collection_query_params(options) do
     filters =
@@ -51,7 +52,7 @@ defmodule Contentful.Request do
       |> deconstruct_filters()
 
     options
-    |> Keyword.take([:limit, :skip, :include, :content_type, :query])
+    |> Keyword.take([:limit, :skip, :include, :content_type, :query, :order])
     |> Keyword.merge(filters)
   end
 
