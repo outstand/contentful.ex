@@ -276,6 +276,10 @@ defmodule Contentful.Delivery do
     {:error, :rate_limit_exceeded, wait_for: seconds}
   end
 
+  def build_error(_response) do
+    build_error()
+  end
+
   @doc """
     Used to make a generic error, in case the API Response is not what is expected
   """
